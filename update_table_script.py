@@ -1,21 +1,18 @@
 import mysql.connector
+import itertools
+
+def xor(text, key):
+    infkey = itertools.chain.from_iterable(itertools.repeat(key))
+    return ''.join(chr(ord(a) ^ ord(b)) for a, b in zip(text, infkey))
+
+dbuser = 'root'
+encrypted_passwd = 'Password7#'
+key = 'key'
 
 db = mysql.connector.connect(
     host='localhost',
-    user='root',
-    passwd='Password7#',
-    database='the_room'
-)
-
-mycursor = db.cursor()
-
-#update table stored procedure
-import mysql.connector
-
-db = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    passwd='Password7#',
+    user=dbuser,
+    passwd=encrypted_passwd,
     database='the_room'
 )
 
